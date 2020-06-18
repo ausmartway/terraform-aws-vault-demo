@@ -11,6 +11,7 @@ variable key_name {
 variable tags {
   type = map
   default = {
+    Name="yulei-vault"
     TTL   = "3"
     owner = "Yulei"
   }
