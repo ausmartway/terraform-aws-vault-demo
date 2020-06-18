@@ -4,7 +4,7 @@ data terraform_remote_state "this" {
   config = {
     organization = "yulei"
     workspaces = {
-      name = "1-typoterraform-aws-core"
+      name = "1-terraform-aws-core"
     }
   }
 }
