@@ -5,14 +5,14 @@ variable hostname {
 
 variable key_name {
   type    = string
-  default = "go"
+  default = "yulei"
 }
 
 variable tags {
   type = map
   default = {
-    TTL   = "48"
-    owner = "Grant Orchard"
+    TTL   = "3"
+    owner = "Yulei"
   }
 }
 

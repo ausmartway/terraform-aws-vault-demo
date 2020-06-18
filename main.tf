@@ -2,7 +2,7 @@ data terraform_remote_state "this" {
   backend = "remote"
 
   config = {
-    organization = "grantorchard"
+    organization = "yulei"
     workspaces = {
       name = "terraform-aws-core"
     }
@@ -17,7 +17,7 @@ locals {
 }
 
 data aws_route53_zone "this" {
-  name         = "go.hashidemos.io"
+  name         = "yulei.aws.hashidemos.io"
   private_zone = false
 }
 
