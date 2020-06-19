@@ -14,9 +14,9 @@ write_files:
     append: true
 
 runcmd:
-  - systemctl enable vault
-  - systemctl start vault
-  - 'sleep 35 && vault operator init --format=json > /tmp/vault_init'
+  - systemctl enable vault 
+  - systemctl start vault && sleep 15
+  - 'sleep 60 && vault operator init --format=json > /tmp/vault_init'
     #  - data=$(echo $payload|jq '{"text": .root_token}')
     #  - curl -X POST -H 'Content-type: application/json' --data "$data" ${slack_webhook}
   - 'jq ''{"test": .root_token}'' /tmp/vault_init > /tmp/root_token'
