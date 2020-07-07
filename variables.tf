@@ -19,7 +19,7 @@ variable tags {
 
 variable instance_type {
   type    = string
-  default = "t2.medium"
+  default = "t2.small"
 }
 
 variable instance_profile_path {
