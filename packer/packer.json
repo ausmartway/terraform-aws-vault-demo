@@ -20,7 +20,7 @@
         "owners": ["099720109477"],
         "most_recent": true
       },
-      "instance_type": "t2.medium",
+      "instance_type": "t2.small",
       "ssh_username": "ubuntu",
       "ami_name": "awx-{{isotime | clean_resource_name}}",
       "tags": {
@@ -31,9 +31,11 @@
     }
   ],
   "provisioners": [
-    {
-      "type": "ansible",
-      "playbook_file": "./playbooks/playbook.yml"
-    }
+    "type": "shell",
+    "inline": [
+      "sleep 30",
+      "sudo apt-get update",
+      "sudo apt-get install -y redis-server"
+    ]
   ]
  }
