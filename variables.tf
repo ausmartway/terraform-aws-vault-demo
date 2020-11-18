@@ -12,7 +12,7 @@ variable tags {
   type = map
   default = {
     Name="yulei-vault"
-    TTL   = "48"
+    TTL   = "192"
     owner = "Yulei"
   }
 }
