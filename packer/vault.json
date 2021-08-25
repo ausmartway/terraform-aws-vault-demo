@@ -30,6 +30,11 @@
   ],
   "provisioners": [
     {
+      "type": "file",
+      "source": "vault.service",
+      "destination": "/tmp/vault.service"
+    },
+    {
     "type": "shell",
     "inline": [
       "sleep 30",
@@ -37,7 +42,16 @@
       "sudo apt-get install -y unzip",
       "wget https://releases.hashicorp.com/vault/{{user `vault_version`}}+ent/vault_{{user `vault_version`}}+ent_linux_amd64.zip",
       "unzip vault_{{user `vault_version`}}+ent_linux_amd64.zip",
-      "sudo cp vault /usr/local/bin"
+      "sudo cp vault /usr/local/bin",
+      "rm vault_1.8.1+ent_linux_amd64.zip vault TermsOfEvaluation.txt EULA.txt",
+      "sudo groupadd vault",
+      "sudo useradd vault -g vault",
+      "sudo chown vault:vault /usr/local/bin/vault",
+      "sudo cp /tmp/vault.service /etc/systemd/system/vault.service",
+      "sudo chmod 0644 /etc/systemd/system/vault.service",
+      "sudo mkdir -p /opt/vault/data",
+      "sudo chown -Rf vault:vault /opt/vault",
+      "sudo systemctl disable vault"
     ]
   }
   ]
