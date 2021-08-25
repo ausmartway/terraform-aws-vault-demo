@@ -140,5 +140,6 @@ resource "aws_iam_role_policy" "this" {
 resource "aws_kms_key" "this" {
   description             = "Vault unseal key"
   deletion_window_in_days = 10
+  tags                    = var.tags
 }
 
