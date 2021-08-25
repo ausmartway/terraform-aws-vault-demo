@@ -3,6 +3,7 @@ data "template_file" "userdata" {
 
   vars = {
     ip_address = var.private_ip,
+    vault_license=var.vault_license
     vault_conf = base64encode(templatefile("${path.module}/templates/vault.conf",
       {
         listener     = var.private_ip

@@ -38,3 +38,7 @@ variable "private_ip" {
   type    = string
   default = "10.0.101.161"
 }
+
+variable "vault_license" {
+  default = "YOURLICENSEFILE"
+}
