@@ -1,4 +1,4 @@
-data terraform_remote_state "this" {
+data "terraform_remote_state" "this" {
   backend = "remote"
 
   config = {
@@ -10,22 +10,22 @@ data terraform_remote_state "this" {
 }
 
 locals {
-  public_subnets = data.terraform_remote_state.this.outputs.public_subnets
+  public_subnets          = data.terraform_remote_state.this.outputs.public_subnets
   security_group_outbound = data.terraform_remote_state.this.outputs.security_group_outbound
-  security_group_ssh = data.terraform_remote_state.this.outputs.security_group_ssh
-  vpc_id = data.terraform_remote_state.this.outputs.vpc_id
+  security_group_ssh      = data.terraform_remote_state.this.outputs.security_group_ssh
+  vpc_id                  = data.terraform_remote_state.this.outputs.vpc_id
 }
 
-data aws_route53_zone "this" {
+data "aws_route53_zone" "this" {
   name         = "yulei.aws.hashidemos.io"
   private_zone = false
 }
 
-data aws_ami "ubuntu" {
+data "aws_ami" "ubuntu" {
   most_recent = true
 
   filter {
-    name = "tag:application"
+    name   = "tag:application"
     values = ["vault-1.8.1"]
   }
 
@@ -41,16 +41,16 @@ module "vault" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "2.13.0"
 
-  name = var.hostname
+  name           = var.hostname
   instance_count = 1
 
   private_ip = var.private_ip
 
   user_data_base64 = base64gzip(data.template_file.userdata.rendered)
 
-  ami = data.aws_ami.ubuntu.id
-  instance_type = var.instance_type
-  key_name = var.key_name
+  ami                  = data.aws_ami.ubuntu.id
+  instance_type        = var.instance_type
+  key_name             = var.key_name
   iam_instance_profile = aws_iam_instance_profile.this.name
 
   monitoring = true
@@ -61,10 +61,10 @@ module "vault" {
   ]
 
   subnet_id = local.public_subnets[0]
-  tags = var.tags
+  tags      = var.tags
 }
 
-resource aws_route53_record "this" {
+resource "aws_route53_record" "this" {
   zone_id = data.aws_route53_zone.this.id
   name    = "${var.hostname}.${data.aws_route53_zone.this.name}"
   type    = "A"
@@ -73,7 +73,7 @@ resource aws_route53_record "this" {
 }
 
 module "security_group_vault" {
-  source  = "terraform-aws-modules/security-group/aws"
+  source = "terraform-aws-modules/security-group/aws"
 
   name        = "vault-http"
   description = "vault http access"
@@ -91,7 +91,7 @@ module "security_group_vault" {
   tags = var.tags
 }
 
-data aws_iam_policy_document "assume" {
+data "aws_iam_policy_document" "assume" {
   statement {
     effect  = "Allow"
     actions = ["sts:AssumeRole"]
@@ -103,7 +103,7 @@ data aws_iam_policy_document "assume" {
   }
 }
 
-data aws_iam_policy_document "this" {
+data "aws_iam_policy_document" "this" {
   statement {
     actions = [
       "ec2:DescribeInstances",
@@ -119,27 +119,27 @@ data aws_iam_policy_document "this" {
 }
 
 
-resource aws_iam_instance_profile "this" {
+resource "aws_iam_instance_profile" "this" {
   name_prefix = var.hostname
   path        = var.instance_profile_path
   role        = aws_iam_role.this.name
 }
 
-resource aws_iam_role "this" {
+resource "aws_iam_role" "this" {
   name_prefix        = var.hostname
   assume_role_policy = data.aws_iam_policy_document.assume.json
 }
 
-resource aws_iam_role_policy "this" {
+resource "aws_iam_role_policy" "this" {
   name   = var.hostname
   role   = aws_iam_role.this.id
   policy = data.aws_iam_policy_document.this.json
 }
 
 
-resource aws_kms_key "this" {
+resource "aws_kms_key" "this" {
   description             = "Vault unseal key"
   deletion_window_in_days = 30
-  tags = var.tags
+  tags                    = var.tags
 }
 
