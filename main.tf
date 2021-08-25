@@ -26,7 +26,7 @@ data aws_ami "ubuntu" {
 
   filter {
     name = "tag:application"
-    values = ["vault-1.4.0"]
+    values = ["vault-1.8.1"]
   }
 
   filter {
@@ -139,7 +139,7 @@ resource aws_iam_role_policy "this" {
 
 resource aws_kms_key "this" {
   description             = "Vault unseal key"
-  deletion_window_in_days = 10
+  deletion_window_in_days = 60
   tags = var.tags
 }
 
