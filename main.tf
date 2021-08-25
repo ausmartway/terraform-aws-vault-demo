@@ -139,7 +139,7 @@ resource aws_iam_role_policy "this" {
 
 resource aws_kms_key "this" {
   description             = "Vault unseal key"
-  deletion_window_in_days = 60
+  deletion_window_in_days = 30
   tags = var.tags
 }
 
