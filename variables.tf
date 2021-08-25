@@ -15,7 +15,7 @@ variable "tags" {
     TTL         = "192"
     owner       = "yulei@hashicorp.com"
     Region      = "APJ"
-    description = "yulei's general vault demo instance, will be removed if not used for 8 days"
+    description = "General vault demo instance, will be removed if not used for 8 days"
   }
 }
 
