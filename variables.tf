@@ -13,13 +13,15 @@ variable tags {
   default = {
     Name="yulei-vault"
     TTL   = "192"
-    owner = "Yulei"
+    owner = "yulei@hashicorp.com"
+    Region="APJ"
+    description="yulei's general vault demo instance, will be removed if not used for 8 days'
   }
 }
 
 variable instance_type {
   type    = string
-  default = "t2.small"
+  default = "t3.small"
 }
 
 variable instance_profile_path {
