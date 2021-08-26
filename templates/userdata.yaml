@@ -12,9 +12,11 @@ write_files:
     content: |
       VAULT_ADDR=http://${ip_address}:8200
     append: true
-  - path: /etc/vault.d/license.txt
-    content: ${vault_license}
-
+  - path: /etc/vault.d/license.hclic
+    content: |
+      ${vault_license}
+    owner: vault:vault
+    permissions: '0600'
 runcmd:
   - systemctl enable vault 
   - systemctl start vault && sleep 15
