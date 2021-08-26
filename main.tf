@@ -110,7 +110,7 @@ data "aws_iam_policy_document" "this" {
       "ec2:DescribeTags",
       "iam:GetInstanceProfile",
       "iam:GetUser",
-      "iam:GetRole"
+      "iam:GetRole",
       "autoscaling:DescribeAutoScalingGroups",
       "kms:Encrypt",
       "kms:Decrypt",
