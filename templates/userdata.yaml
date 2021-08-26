@@ -11,8 +11,9 @@ write_files:
   - path: /etc/environment
     content: |
       VAULT_ADDR=http://${ip_address}:8200
-      VAULT_LICENSE=${vault_license}
     append: true
+  - path: /etc/vault.d/license.txt
+    content: ${var.vault_license}
 
 runcmd:
   - systemctl enable vault 
