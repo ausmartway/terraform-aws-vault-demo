@@ -35,7 +35,7 @@ data "amazon-ami" "ubuntu18" {
 }
 
 locals {
-  packerstarttime = formatdate("YYYYMMDDhhmm", timestamp())
+  packerstarttime = replace(formatdate("YYYY-MM-DD-hh-mm", timestamp()),"-","")
 }
 
 source "amazon-ebs" "vault" {
