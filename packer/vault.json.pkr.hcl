@@ -21,7 +21,7 @@ variable "aws_sessio_token" {
 
 variable "vault_version" {
   type    = string
-  default = "1.8.1"
+  default = "1.8.2"
 }
 
 data "amazon-ami" "ubuntu18" {
@@ -66,7 +66,7 @@ build {
       "wget https://releases.hashicorp.com/vault/${var.vault_version}+ent/vault_${var.vault_version}+ent_linux_amd64.zip", 
       "unzip vault_${var.vault_version}+ent_linux_amd64.zip", 
       "sudo cp vault /usr/local/bin", 
-      "rm vault_1.8.1+ent_linux_amd64.zip vault TermsOfEvaluation.txt EULA.txt", 
+      "rm vault_${var.vault_version}+ent_linux_amd64.zip vault TermsOfEvaluation.txt EULA.txt", 
       "sudo groupadd vault", 
       "sudo useradd vault -g vault", 
       "sudo chown vault:vault /usr/local/bin/vault", 
