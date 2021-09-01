@@ -110,6 +110,7 @@ data "aws_iam_policy_document" "this" {
       "ec2:DescribeTags",
       "iam:GetInstanceProfile",
       "iam:CreateUser",
+      "iam:PutUserPolicy",
       "iam:GetUser",
       "iam:GetRole",
       "autoscaling:DescribeAutoScalingGroups",
