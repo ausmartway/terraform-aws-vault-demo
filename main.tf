@@ -117,6 +117,7 @@ data "aws_iam_policy_document" "this" {
       "iam:ListAttachedUserPolicies",
       "iam:ListAccessKeys",
       "iam:DeleteAccessKey",
+      "iam:DeleteUserPolicy",
       "iam:GetUser",
       "iam:GetRole",
       "autoscaling:DescribeAutoScalingGroups",
