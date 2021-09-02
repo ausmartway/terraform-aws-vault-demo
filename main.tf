@@ -112,6 +112,7 @@ data "aws_iam_policy_document" "this" {
       "iam:CreateUser",
       "iam:PutUserPolicy",
       "iam:CreateAccessKey",
+      "iam:ListGroupsForUser",
       "iam:GetUser",
       "iam:GetRole",
       "autoscaling:DescribeAutoScalingGroups",
