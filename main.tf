@@ -115,6 +115,7 @@ data "aws_iam_policy_document" "this" {
       "iam:ListGroupsForUser",
       "iam:ListUserPolicies",
       "iam:ListAttachedUserPolicies",
+      "iam:ListAccessKeys",
       "iam:GetUser",
       "iam:GetRole",
       "autoscaling:DescribeAutoScalingGroups",
