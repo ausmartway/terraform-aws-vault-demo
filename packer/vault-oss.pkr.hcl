@@ -39,7 +39,7 @@ locals {
 }
 
 source "amazon-ebs" "vault" {
-  ami_name      = "awx-${local.packerstarttime}"
+  ami_name      = "vault-${local.packerstarttime}"
   instance_type = "t2.small"
   source_ami    = "${data.amazon-ami.ubuntu18.id}"
   ssh_username  = "ubuntu"
