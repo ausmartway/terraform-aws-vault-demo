@@ -20,6 +20,6 @@ write_files:
 runcmd:
   - systemctl enable vault 
   - systemctl start vault && date && sleep 15
-  - sleep 120 && date && vault operator init --format=json -address http://${ip_address}:8200 > /tmp/vault_init
+  - date && vault operator init --format=json -address http://${ip_address}:8200 > /tmp/vault_init
   - 'jq ''{"text": .root_token}'' /tmp/vault_init > /tmp/root_token'
   - 'curl -H "Content-type: application/json" -d "@/tmp/root_token" ${slack_webhook}'
