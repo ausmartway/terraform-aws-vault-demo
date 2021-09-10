@@ -31,7 +31,6 @@ variable "instance_profile_path" {
 
 variable "slack_webhook" {
   type    = string
-  default = "https://hooks.slack.com/services/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"
 }
 
 variable "private_ip" {
