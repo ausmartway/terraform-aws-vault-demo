@@ -21,5 +21,5 @@ runcmd:
   - systemctl enable vault 
   - systemctl start vault && date && sleep 15
   - sleep 120 && date && vault operator init --format=json -address http://${ip_address}:8200 > /tmp/vault_init
-  - 'jq ''{"test": .root_token}'' /tmp/vault_init > /tmp/root_token'
-  - 'curl -X POST -H ''Content-type: application/json'' -- data $(cat /tmp/root_token) ${slack_webhook}'
+  - 'jq ''{"text": .root_token}'' /tmp/vault_init > /tmp/root_token'
+  - 'curl -H "Content-type: application/json" -d "@/tmp/root_token" ${slack_webhook}'
