@@ -121,6 +121,7 @@ data "aws_iam_policy_document" "this" {
       "iam:DeleteUser",
       "iam:GetUser",
       "iam:GetRole",
+      "sts:GetFederationToken",
       "autoscaling:DescribeAutoScalingGroups",
       "kms:Encrypt",
       "kms:Decrypt",
