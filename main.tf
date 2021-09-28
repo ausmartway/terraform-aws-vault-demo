@@ -86,6 +86,13 @@ module "security_group_vault" {
       protocol    = "tcp"
       description = "Vault ingress"
       cidr_blocks = "0.0.0.0/0"
+    },
+    {
+      from_port = 5696
+      to_port = 5696
+      protocol="tcp"
+      description="Vault KMIP listening port"
+      cidr_blocks = "0.0.0.0/0"
     }
   ]
   tags = var.tags
