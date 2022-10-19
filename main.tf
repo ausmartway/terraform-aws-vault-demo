@@ -26,7 +26,7 @@ data "aws_ami" "ubuntu" {
 
   filter {
     name   = "tag:application"
-    values = ["vault-1.9.3-ent"]
+    values = ["vault-1.12.0-ent"]
   }
 
   filter {
@@ -34,7 +34,7 @@ data "aws_ami" "ubuntu" {
     values = ["hvm"]
   }
 
-  owners = ["711129375688"] # HashiCorp account
+  owners = ["711129375688"] # HashiCorp SE account
 }
 
 module "vault" {
