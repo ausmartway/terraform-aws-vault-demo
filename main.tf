@@ -42,7 +42,6 @@ module "vault" {
   version = "5.3.1"
 
   name           = var.hostname
-  instance_count = 1
 
   private_ip = var.private_ip
 
