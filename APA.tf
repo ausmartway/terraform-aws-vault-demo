@@ -24,3 +24,11 @@ module "apa-vault" {
   subnet_id = local.public_subnets[0]
   tags      = var.tags
 }
+
+resource "aws_route53_record" "apa-vault" {
+  zone_id = data.aws_route53_zone.this.id
+  name    = "apa-vault.${data.aws_route53_zone.this.name}"
+  type    = "A"
+  ttl     = "300"
+  records = [module.apa-vault.public_ip]
+}
