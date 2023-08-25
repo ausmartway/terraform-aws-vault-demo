@@ -21,7 +21,7 @@ variable "aws_sessio_token" {
 
 variable "vault_version" {
   type    = string
-  default = "1.9.3"
+  default = "1.14.1"
 }
 
 data "amazon-ami" "ubuntu18" {
