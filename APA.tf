@@ -11,7 +11,7 @@ module "apa-vault" {
   ami                  = data.aws_ami.ubuntu.id
   instance_type        = var.instance_type
   key_name             = var.key_name
-  iam_instance_profile = aws_iam_instance_profile.this.name
+  iam_instance_profile = aws_iam_instance_profile.apa-vault.name
   associate_public_ip_address = true
 
   monitoring = true
@@ -35,4 +35,21 @@ resource "aws_route53_record" "apa-vault" {
 
 output "apa_cluster_url" {
   value = "http://${aws_route53_record.apa-vault.name}:8200"
+}
+
+resource "aws_iam_instance_profile" "apa-vault" {
+  name_prefix = var.hostname
+  path        = var.instance_profile_path
+  role        = aws_iam_role.apa-vault.name
+}
+
+resource "aws_iam_role" "apa-vault" {
+  name_prefix        = "apa-vault"
+  assume_role_policy = data.aws_iam_policy_document.assume.json
+}
+
+resource "aws_iam_role_policy" "apa-vault" {
+  name   = "apa-vault"
+  role   = aws_iam_role.apa-vault.id
+  policy = data.aws_iam_policy_document.this.json
 }
