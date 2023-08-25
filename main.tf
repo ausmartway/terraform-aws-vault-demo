@@ -50,7 +50,7 @@ module "vault" {
   ami                  = data.aws_ami.ubuntu.id
   instance_type        = var.instance_type
   key_name             = var.key_name
-  iam_instance_profile = aws_iam_instance_profile.this.name
+  iam_instance_profile = aws_iam_instance_profile.vault.name
   associate_public_ip_address = true
 
   monitoring = true
@@ -139,20 +139,20 @@ data "aws_iam_policy_document" "this" {
 }
 
 
-resource "aws_iam_instance_profile" "this" {
+resource "aws_iam_instance_profile" "vault" {
   name_prefix = var.hostname
   path        = var.instance_profile_path
-  role        = aws_iam_role.this.name
+  role        = aws_iam_role.vault.name
 }
 
-resource "aws_iam_role" "this" {
+resource "aws_iam_role" "vault" {
   name_prefix        = var.hostname
   assume_role_policy = data.aws_iam_policy_document.assume.json
 }
 
-resource "aws_iam_role_policy" "this" {
+resource "aws_iam_role_policy" "vault" {
   name   = var.hostname
-  role   = aws_iam_role.this.id
+  role   = aws_iam_role.vault.id
   policy = data.aws_iam_policy_document.this.json
 }
 
