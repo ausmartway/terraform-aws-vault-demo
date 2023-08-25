@@ -52,6 +52,7 @@ module "vault" {
   instance_type        = var.instance_type
   key_name             = var.key_name
   iam_instance_profile = aws_iam_instance_profile.this.name
+  associate_public_ip_address = true
 
   monitoring = true
   vpc_security_group_ids = [
