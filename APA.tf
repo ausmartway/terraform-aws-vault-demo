@@ -32,3 +32,7 @@ resource "aws_route53_record" "apa-vault" {
   ttl     = "300"
   records = [module.apa-vault.public_ip]
 }
+
+output "apa_cluster_url" {
+  value = "http://${aws_route53_record.apa-vault.name}:8200"
+}
