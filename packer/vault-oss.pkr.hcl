@@ -21,7 +21,7 @@ variable "aws_sessio_token" {
 
 variable "vault_version" {
   type    = string
-  default = "1.9.3"
+  default = "1.12.0"
 }
 
 data "amazon-ami" "ubuntu18" {
@@ -60,20 +60,20 @@ build {
 
   provisioner "shell" {
     inline = [
-      "sleep 30", 
-      "sudo apt-get update", 
-      "sudo apt-get install -y unzip", 
-      "wget https://releases.hashicorp.com/vault/${var.vault_version}/vault_${var.vault_version}_linux_amd64.zip", 
-      "unzip vault_${var.vault_version}_linux_amd64.zip", 
-      "sudo cp vault /usr/local/bin", 
-      "rm vault_${var.vault_version}_linux_amd64.zip", 
-      "sudo groupadd vault", 
-      "sudo useradd vault -g vault", 
-      "sudo chown vault:vault /usr/local/bin/vault", 
-      "sudo cp /tmp/vault.service /etc/systemd/system/vault.service", 
-      "sudo chmod 0644 /etc/systemd/system/vault.service", 
-      "sudo mkdir -p /opt/vault/data", 
-      "sudo chown -Rf vault:vault /opt/vault", 
+      "sleep 30",
+      "sudo apt-get update",
+      "sudo apt-get install -y unzip",
+      "wget https://releases.hashicorp.com/vault/${var.vault_version}/vault_${var.vault_version}_linux_amd64.zip",
+      "unzip vault_${var.vault_version}_linux_amd64.zip",
+      "sudo cp vault /usr/local/bin",
+      "rm vault_${var.vault_version}_linux_amd64.zip",
+      "sudo groupadd vault",
+      "sudo useradd vault -g vault",
+      "sudo chown vault:vault /usr/local/bin/vault",
+      "sudo cp /tmp/vault.service /etc/systemd/system/vault.service",
+      "sudo chmod 0644 /etc/systemd/system/vault.service",
+      "sudo mkdir -p /opt/vault/data",
+      "sudo chown -Rf vault:vault /opt/vault",
       "sudo systemctl disable vault"
     ]
   }

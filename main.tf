@@ -17,7 +17,7 @@ locals {
 }
 
 data "aws_route53_zone" "this" {
-  name         = "yulei.aws.hashidemos.io"
+  name         = "yulei.sbx.hashidemos.io"
   private_zone = false
 }
 
