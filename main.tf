@@ -69,7 +69,7 @@ resource "aws_route53_record" "this" {
   name    = "${var.hostname}.${data.aws_route53_zone.this.name}"
   type    = "A"
   ttl     = "300"
-  records = [module.vault.public_ip[0]]
+  records = [module.vault.public_ip]
 }
 
 module "security_group_vault" {
