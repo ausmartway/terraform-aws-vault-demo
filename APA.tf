@@ -1,3 +1,14 @@
+variable "apa-tags" {
+  type = map(any)
+  default = {
+    Name        = "apa-vault"
+    TTL         = "192"
+    owner       = "yulei@hashicorp.com"
+    Region      = "APJ"
+    description = "General vault demo instance"
+  }
+}
+
 module "apa-vault" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "5.3.1"
@@ -22,7 +33,7 @@ module "apa-vault" {
   ]
 
   subnet_id = local.public_subnets[0]
-  tags      = var.tags
+  tags      = var.apa-tags
 }
 
 resource "aws_route53_record" "apa-vault" {
