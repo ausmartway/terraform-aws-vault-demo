@@ -39,7 +39,7 @@ data "aws_ami" "ubuntu" {
 
 module "vault" {
   source  = "terraform-aws-modules/ec2-instance/aws"
-  version = "2.13.0"
+  version = "5.3.1"
 
   name           = var.hostname
   instance_count = 1
