@@ -1,7 +1,7 @@
-# variable "apa-tags" {
+# variable "customer-poc-tags" {
 #   type = map(any)
 #   default = {
-#     Name        = "apa-vault"
+#     Name        = "customer-poc-vault"
 #     TTL         = "192"
 #     owner       = "yulei@hashicorp.com"
 #     Region      = "APJ"
@@ -9,11 +9,11 @@
 #   }
 # }
 
-# module "apa-vault" {
+# module "customer-poc-vault" {
 #   source  = "terraform-aws-modules/ec2-instance/aws"
 #   version = "5.3.1"
 
-#   name           = "apa-vault"
+#   name           = "customer-poc-vault"
 
 #   private_ip = "10.0.101.162"
 
@@ -22,7 +22,7 @@
 #   ami                  = data.aws_ami.ubuntu.id
 #   instance_type        = var.instance_type
 #   key_name             = var.key_name
-#   iam_instance_profile = aws_iam_instance_profile.apa-vault.name
+#   iam_instance_profile = aws_iam_instance_profile.customer-poc-vault.name
 #   associate_public_ip_address = true
 
 #   monitoring = true
@@ -33,34 +33,34 @@
 #   ]
 
 #   subnet_id = local.public_subnets[0]
-#   tags      = var.apa-tags
+#   tags      = var.customer-poc-tags
 # }
 
-# resource "aws_route53_record" "apa-vault" {
+# resource "aws_route53_record" "customer-poc-vault" {
 #   zone_id = data.aws_route53_zone.this.id
-#   name    = "apa-vault.${data.aws_route53_zone.this.name}"
+#   name    = "customer-poc-vault.${data.aws_route53_zone.this.name}"
 #   type    = "A"
 #   ttl     = "300"
-#   records = [module.apa-vault.public_ip]
+#   records = [module.customer-poc-vault.public_ip]
 # }
 
-# output "apa_cluster_url" {
-#   value = "http://${aws_route53_record.apa-vault.name}:8200"
+# output "customer-poc_cluster_url" {
+#   value = "http://${aws_route53_record.customer-poc-vault.name}:8200"
 # }
 
-# resource "aws_iam_instance_profile" "apa-vault" {
+# resource "aws_iam_instance_profile" "customer-poc-vault" {
 #   name_prefix = var.hostname
 #   path        = var.instance_profile_path
-#   role        = aws_iam_role.apa-vault.name
+#   role        = aws_iam_role.customer-poc-vault.name
 # }
 
-# resource "aws_iam_role" "apa-vault" {
-#   name_prefix        = "apa-vault"
+# resource "aws_iam_role" "customer-poc-vault" {
+#   name_prefix        = "customer-poc-vault"
 #   assume_role_policy = data.aws_iam_policy_document.assume.json
 # }
 
-# resource "aws_iam_role_policy" "apa-vault" {
-#   name   = "apa-vault"
-#   role   = aws_iam_role.apa-vault.id
+# resource "aws_iam_role_policy" "customer-poc-vault" {
+#   name   = "customer-poc-vault"
+#   role   = aws_iam_role.customer-poc-vault.id
 #   policy = data.aws_iam_policy_document.this.json
 # }
