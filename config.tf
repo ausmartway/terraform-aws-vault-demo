@@ -1,7 +1,5 @@
-data "template_file" "userdata" {
-  template = file("${path.module}/templates/userdata.yaml")
-
-  vars = {
+locals {
+  user_data = templatefile("${path.module}/templates/userdata.yaml", {
     ip_address    = var.private_ip,
     vault_license = var.vault_license
     vault_conf = base64encode(templatefile("${path.module}/templates/vault.conf",
@@ -14,5 +12,5 @@ data "template_file" "userdata" {
       }
     ))
     slack_webhook = var.slack_webhook
-  }
+  })
 }
