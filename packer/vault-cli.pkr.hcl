@@ -31,7 +31,7 @@ data "amazon-ami" "ubuntu18" {
     virtualization-type = "hvm"
   }
   most_recent = true
-  owners      = ["099720109477"]
+  owners      = ["099720109477"] //ubuntu official account
 }
 
 locals {
