@@ -84,7 +84,14 @@ module "security_group_vault" {
       from_port   = 8200
       to_port     = 8200
       protocol    = "tcp"
-      description = "Vault ingress"
+      description = "Vault ingress api addr"
+      cidr_blocks = "0.0.0.0/0"
+    },
+    {
+      from_port   = 8201
+      to_port     = 8201
+      protocol    = "tcp"
+      description = "Vault ingress cluster addr"
       cidr_blocks = "0.0.0.0/0"
     },
     {
