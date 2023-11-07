@@ -41,16 +41,16 @@ module "vault" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "5.3.1"
 
-  name           = var.hostname
+  name = var.hostname
 
   private_ip = var.private_ip
 
   user_data_base64 = base64gzip(local.user_data)
 
-  ami                  = data.aws_ami.ubuntu.id
-  instance_type        = var.instance_type
-  key_name             = var.key_name
-  iam_instance_profile = aws_iam_instance_profile.vault.name
+  ami                         = data.aws_ami.ubuntu.id
+  instance_type               = var.instance_type
+  key_name                    = var.key_name
+  iam_instance_profile        = aws_iam_instance_profile.vault.name
   associate_public_ip_address = true
 
   monitoring = true
@@ -95,10 +95,10 @@ module "security_group_vault" {
       cidr_blocks = "0.0.0.0/0"
     },
     {
-      from_port = 5696
-      to_port = 5696
-      protocol="tcp"
-      description="Vault KMIP listening port"
+      from_port   = 5696
+      to_port     = 5696
+      protocol    = "tcp"
+      description = "Vault KMIP listening port"
       cidr_blocks = "0.0.0.0/0"
     }
   ]
