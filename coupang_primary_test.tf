@@ -1,13 +1,25 @@
-# variable "customer-poc-tags" {
-#   type = map(any)
-#   default = {
-#     Name        = "coupang-primary-test"
-#     TTL         = "192"
-#     owner       = "yulei@hashicorp.com"
-#     Region      = "APJ"
-#     description = "General vault demo instance"
-#   }
-# }
+variable "customer-poc-tags" {
+  type = map(any)
+  default = {
+    Name        = "coupang-primary-test"
+    TTL         = "192"
+    owner       = "yulei@hashicorp.com"
+    Region      = "APJ"
+    description = "General vault demo instance"
+  }
+}
+
+resource "aws_lb" "coupang-primary-test" {
+  name               = "coupang-primary-test-nlb"
+  internal           = false
+  load_balancer_type = "network"
+  subnets            = [local.public_subnets[0]]
+
+  enable_deletion_protection = false
+
+  tags = var.customer-poc-tags
+  security_groups = [  module.security_group_vault.security_group_id]
+}
 
 # module "coupang-primary-test" {
 #   source  = "terraform-aws-modules/ec2-instance/aws"
