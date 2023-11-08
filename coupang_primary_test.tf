@@ -84,19 +84,19 @@ module "coupang-primary-test" {
 #   value = "http://${aws_route53_record.coupang-primary-test.name}:8200"
 # }
 
-# resource "aws_iam_instance_profile" "coupang-primary-test" {
-#   name_prefix = var.hostname
-#   path        = var.instance_profile_path
-#   role        = aws_iam_role.coupang-primary-test.name
-# }
+resource "aws_iam_instance_profile" "coupang-primary-test" {
+  name_prefix = var.hostname
+  path        = var.instance_profile_path
+  role        = aws_iam_role.coupang-primary-test.name
+}
 
-# resource "aws_iam_role" "coupang-primary-test" {
-#   name_prefix        = "coupang-primary-test"
-#   assume_role_policy = data.aws_iam_policy_document.assume.json
-# }
+resource "aws_iam_role" "coupang-primary-test" {
+  name_prefix        = "coupang-primary-test"
+  assume_role_policy = data.aws_iam_policy_document.assume.json
+}
 
-# resource "aws_iam_role_policy" "coupang-primary-test" {
-#   name   = "coupang-primary-test"
-#   role   = aws_iam_role.coupang-primary-test.id
-#   policy = data.aws_iam_policy_document.this.json
-# }
+resource "aws_iam_role_policy" "coupang-primary-test" {
+  name   = "coupang-primary-test"
+  role   = aws_iam_role.coupang-primary-test.id
+  policy = data.aws_iam_policy_document.this.json
+}
