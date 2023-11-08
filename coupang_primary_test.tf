@@ -80,9 +80,9 @@ module "coupang-primary-test" {
 #   records = [module.coupang-primary-test.public_ip]
 # }
 
-# output "coupang-primary-testc_cluster_url" {
-#   value = "http://${aws_route53_record.coupang-primary-test.name}:8200"
-# }
+output "coupang-primary-testc_cluster_url" {
+  value = aws_lb.coupang-primary-test.dns_name
+}
 
 resource "aws_iam_instance_profile" "coupang-primary-test" {
   name_prefix = var.hostname
