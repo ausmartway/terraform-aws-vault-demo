@@ -15,7 +15,7 @@ module "coupang-primary-test" {
 
   name           = "coupang-primary-test"
 
-  private_ip = "10.0.101.162"
+  private_ip = "10.0.101.163"
 
   user_data_base64 = base64gzip(local.user_data )
 
