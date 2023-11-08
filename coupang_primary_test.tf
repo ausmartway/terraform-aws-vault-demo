@@ -24,7 +24,7 @@ resource "aws_lb" "coupang-primary-test" {
 resource "aws_lb_target_group" "coupang-primary-test" {
   name     = "coupang-primary-test"
   port     = 8200
-  protocol = "tcp"
+  protocol = "TCP"
   vpc_id      = local.vpc_id
 }
 
