@@ -72,16 +72,20 @@ module "coupang-primary-test" {
   tags      = var.customer-poc-tags
 }
 
-# resource "aws_route53_record" "coupang-primary-test" {
-#   zone_id = data.aws_route53_zone.this.id
-#   name    = "coupang-primary-test.${data.aws_route53_zone.this.name}"
-#   type    = "A"
-#   ttl     = "300"
-#   records = [module.coupang-primary-test.public_ip]
-# }
+resource "aws_route53_record" "coupang-primary-test" {
+  zone_id = data.aws_route53_zone.this.id
+  name    = "coupang-primary-test.${data.aws_route53_zone.this.name}"
+  type    = "A"
+  ttl     = "300"
+  records = [module.coupang-primary-test.public_ip]
+}
 
 output "coupang-primary-testc_cluster_url" {
   value = aws_lb.coupang-primary-test.dns_name
+}
+
+output "coupang-primary-testc_cluster_url-direct" {
+  value = aws_route53_record.coupang-primary-test.name
 }
 
 resource "aws_iam_instance_profile" "coupang-primary-test" {
