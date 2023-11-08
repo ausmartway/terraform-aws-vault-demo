@@ -59,7 +59,7 @@ module "coupang-primary-test" {
   instance_type        = var.instance_type
   key_name             = var.key_name
   iam_instance_profile = aws_iam_instance_profile.coupang-primary-test.name
-  associate_public_ip_address = false
+  associate_public_ip_address = true
 
   monitoring = true
   vpc_security_group_ids = [
