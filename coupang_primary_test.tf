@@ -21,6 +21,30 @@ resource "aws_lb" "coupang-primary-test" {
   security_groups = [  module.security_group_vault.security_group_id]
 }
 
+resource "aws_lb_target_group" "coupang-primary-test" {
+  name     = "coupang-primary-test"
+  port     = 8200
+  protocol = "tcp"
+  vpc_id      = local.vpc_id
+}
+
+resource "aws_lb_listener" "coupang-primary-test" {
+  load_balancer_arn = aws_lb.coupang-primary-test.arn
+  port              = "8200"
+  protocol          = "TCP"
+
+  default_action {
+    target_group_arn = aws_lb_target_group.coupang-primary-test.arn
+    type             = "forward"
+  }
+}
+
+resource "aws_lb_target_group_attachment" "coupang-primary-test" {
+  target_group_arn = aws_lb_target_group.coupang-primary-test.arn
+  target_id        = module.coupang-primary-test.id
+  port             = 8200
+}
+
 # module "coupang-primary-test" {
 #   source  = "terraform-aws-modules/ec2-instance/aws"
 #   version = "5.3.1"
