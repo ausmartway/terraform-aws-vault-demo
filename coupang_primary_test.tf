@@ -45,32 +45,32 @@ resource "aws_lb_target_group_attachment" "coupang-primary-test" {
   port             = 8200
 }
 
-# module "coupang-primary-test" {
-#   source  = "terraform-aws-modules/ec2-instance/aws"
-#   version = "5.3.1"
+module "coupang-primary-test" {
+  source  = "terraform-aws-modules/ec2-instance/aws"
+  version = "5.3.1"
 
-#   name           = "coupang-primary-test"
+  name           = "coupang-primary-test"
 
-#   private_ip = "10.0.101.163"
+  private_ip = "10.0.101.163"
 
-#   user_data_base64 = base64gzip(local.user_data )
+  user_data_base64 = base64gzip(local.user_data )
 
-#   ami                  = data.aws_ami.ubuntu.id
-#   instance_type        = var.instance_type
-#   key_name             = var.key_name
-#   iam_instance_profile = aws_iam_instance_profile.coupang-primary-test.name
-#   associate_public_ip_address = false
+  ami                  = data.aws_ami.ubuntu.id
+  instance_type        = var.instance_type
+  key_name             = var.key_name
+  iam_instance_profile = aws_iam_instance_profile.coupang-primary-test.name
+  associate_public_ip_address = false
 
-#   monitoring = true
-#   vpc_security_group_ids = [
-#     local.security_group_outbound,
-#     local.security_group_ssh,
-#     module.security_group_vault.security_group_id
-#   ]
+  monitoring = true
+  vpc_security_group_ids = [
+    local.security_group_outbound,
+    local.security_group_ssh,
+    module.security_group_vault.security_group_id
+  ]
 
-#   subnet_id = local.public_subnets[0]
-#   tags      = var.customer-poc-tags
-# }
+  subnet_id = local.public_subnets[0]
+  tags      = var.customer-poc-tags
+}
 
 # resource "aws_route53_record" "coupang-primary-test" {
 #   zone_id = data.aws_route53_zone.this.id
