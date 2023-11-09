@@ -11,6 +11,7 @@ data "terraform_remote_state" "this" {
 
 locals {
   public_subnets          = data.terraform_remote_state.this.outputs.public_subnets
+  private_subnets         = data.terraform_remote_state.this.outputs.private_subnets
   security_group_outbound = data.terraform_remote_state.this.outputs.security_group_outbound
   security_group_ssh      = data.terraform_remote_state.this.outputs.security_group_ssh
   vpc_id                  = data.terraform_remote_state.this.outputs.vpc_id
@@ -100,6 +101,39 @@ module "security_group_vault" {
       protocol    = "tcp"
       description = "Vault KMIP listening port"
       cidr_blocks = "0.0.0.0/0"
+    }
+  ]
+  tags = var.tags
+}
+
+module "security_group_vault_from_public_subnets" {
+  source = "terraform-aws-modules/security-group/aws"
+
+  name        = "vault-http"
+  description = "vault http access"
+  vpc_id      = local.vpc_id
+
+  ingress_with_cidr_blocks = [
+    {
+      from_port   = 8200
+      to_port     = 8200
+      protocol    = "tcp"
+      description = "Vault ingress api addr"
+      cidr_blocks = local.public_subnets
+    },
+    {
+      from_port   = 8201
+      to_port     = 8201
+      protocol    = "tcp"
+      description = "Vault ingress cluster addr"
+      cidr_blocks = local.public_subnets
+    },
+    {
+      from_port   = 5696
+      to_port     = 5696
+      protocol    = "tcp"
+      description = "Vault KMIP listening port"
+      cidr_blocks = local.public_subnets
     }
   ]
   tags = var.tags

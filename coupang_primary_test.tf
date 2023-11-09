@@ -1,43 +1,43 @@
-# variable "customer-poc-tags" {
-#   type = map(any)
-#   default = {
-#     Name        = "coupang-primary-test"
-#     TTL         = "192"
-#     owner       = "yulei@hashicorp.com"
-#     Region      = "APJ"
-#     description = "General vault demo instance"
-#   }
-# }
+variable "customer-poc-tags" {
+  type = map(any)
+  default = {
+    Name        = "coupang-primary-test"
+    TTL         = "192"
+    owner       = "yulei@hashicorp.com"
+    Region      = "APJ"
+    description = "General vault demo instance"
+  }
+}
 
-# resource "aws_lb" "coupang-primary-test" {
-#   name               = "coupang-primary-test-nlb"
-#   internal           = false
-#   load_balancer_type = "network"
-#   subnets            = [local.public_subnets[0]]
+resource "aws_lb" "coupang-primary-test" {
+  name               = "coupang-primary-test-nlb"
+  internal           = false
+  load_balancer_type = "network"
+  subnets            = [local.public_subnets[0]]
 
-#   enable_deletion_protection = false
+  enable_deletion_protection = false
 
-#   tags = var.customer-poc-tags
-#   security_groups = [  module.security_group_vault.security_group_id]
-# }
+  tags = var.customer-poc-tags
+  security_groups = [  module.security_group_vault.security_group_id]
+}
 
-# resource "aws_lb_target_group" "coupang-primary-test" {
-#   name     = "coupang-primary-test"
-#   port     = 8200
-#   protocol = "TCP"
-#   vpc_id      = local.vpc_id
-# }
+resource "aws_lb_target_group" "coupang-primary-test" {
+  name     = "coupang-primary-test"
+  port     = 8200
+  protocol = "TCP"
+  vpc_id      = local.vpc_id
+}
 
-# resource "aws_lb_listener" "coupang-primary-test" {
-#   load_balancer_arn = aws_lb.coupang-primary-test.arn
-#   port              = "8200"
-#   protocol          = "TCP"
+resource "aws_lb_listener" "coupang-primary-test" {
+  load_balancer_arn = aws_lb.coupang-primary-test.arn
+  port              = "8200"
+  protocol          = "TCP"
 
-#   default_action {
-#     target_group_arn = aws_lb_target_group.coupang-primary-test.arn
-#     type             = "forward"
-#   }
-# }
+  default_action {
+    target_group_arn = aws_lb_target_group.coupang-primary-test.arn
+    type             = "forward"
+  }
+}
 
 # resource "aws_lb_target_group_attachment" "coupang-primary-test" {
 #   target_group_arn = aws_lb_target_group.coupang-primary-test.arn
@@ -45,32 +45,32 @@
 #   port             = 8200
 # }
 
-# module "coupang-primary-test" {
-#   source  = "terraform-aws-modules/ec2-instance/aws"
-#   version = "5.3.1"
+module "coupang-primary-test" {
+  source  = "terraform-aws-modules/ec2-instance/aws"
+  version = "5.3.1"
 
-#   name           = "coupang-primary-test"
+  name           = "coupang-primary-test"
 
-#   private_ip = "10.0.101.163"
+  private_ip = "10.0.1.163"
 
-#   user_data_base64 = base64gzip(local.user_data )
+  user_data_base64 = base64gzip(local.user_data )
 
-#   ami                  = data.aws_ami.ubuntu.id
-#   instance_type        = var.instance_type
-#   key_name             = var.key_name
-#   iam_instance_profile = aws_iam_instance_profile.coupang-primary-test.name
-#   associate_public_ip_address = true
+  ami                  = data.aws_ami.ubuntu.id
+  instance_type        = var.instance_type
+  key_name             = var.key_name
+  iam_instance_profile = aws_iam_instance_profile.coupang-primary-test.name
+  associate_public_ip_address = false
 
-#   monitoring = true
-#   vpc_security_group_ids = [
-#     local.security_group_outbound,
-#     local.security_group_ssh,
-#     module.security_group_vault.security_group_id
-#   ]
+  monitoring = true
+  vpc_security_group_ids = [
+    local.security_group_outbound,
+    local.security_group_ssh,
+    module.security_group_vault_from_public_subnets.security_group_id
+  ]
 
-#   subnet_id = local.public_subnets[0]
-#   tags      = var.customer-poc-tags
-# }
+  subnet_id = local.private_subnets[0]
+  tags      = var.customer-poc-tags
+}
 
 # resource "aws_route53_record" "coupang-primary-test" {
 #   zone_id = data.aws_route53_zone.this.id
