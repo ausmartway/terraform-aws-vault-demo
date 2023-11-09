@@ -84,9 +84,9 @@ output "coupang-primary-testc_cluster_url" {
   value = aws_lb.coupang-primary-test.dns_name
 }
 
-output "coupang-primary-testc_cluster_url-direct" {
-  value = aws_route53_record.coupang-primary-test.name
-}
+# output "coupang-primary-testc_cluster_url-direct" {
+#   value = aws_route53_record.coupang-primary-test.name
+# }
 
 resource "aws_iam_instance_profile" "coupang-primary-test" {
   name_prefix = var.hostname
