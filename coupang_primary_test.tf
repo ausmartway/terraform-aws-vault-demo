@@ -30,7 +30,7 @@ resource "aws_lb_target_group" "coupang-primary-test" {
   protocol = "TCP"
   
   health_check {
-    path = "v1/sys/health?standbycode=200&sealedcode=200&uninitcode=200"
+    path = "/v1/sys/health?standbycode=200&sealedcode=200&uninitcode=200"
     port = "8200"
     protocol = "HTTP"
     timeout = 2
@@ -47,7 +47,7 @@ resource "aws_lb_target_group" "coupang-primary-test-8201" {
   protocol = "TCP"
   
   health_check {
-    path = "v1/sys/health?standbycode=200&sealedcode=200&uninitcode=200"
+    path = "/v1/sys/health?standbycode=200&sealedcode=200&uninitcode=200"
     port = "8200"
     protocol = "HTTP"
     timeout = 2
