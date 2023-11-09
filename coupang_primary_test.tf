@@ -33,10 +33,12 @@ resource "aws_lb_target_group" "coupang-primary-test" {
     path = "/v1/sys/health?standbyok=true"
     port = "8200"
     protocol = "HTTP"
-    interval = 5
+    timeout = 5
+    interval = 10
   }
 
   vpc_id      = local.vpc_id
+  depends_on = [ aws_lb.coupang-primary-test ]
 }
 
 resource "aws_lb_listener" "coupang-primary-test" {
