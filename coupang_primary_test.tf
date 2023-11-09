@@ -80,27 +80,27 @@ module "coupang-primary-test" {
 #   records = [module.coupang-primary-test.public_ip]
 # }
 
-# output "coupang-primary-testc_cluster_url" {
-#   value = aws_lb.coupang-primary-test.dns_name
-# }
+output "coupang-primary-testc_cluster_url" {
+  value = aws_lb.coupang-primary-test.dns_name
+}
 
-# output "coupang-primary-testc_cluster_url-direct" {
-#   value = aws_route53_record.coupang-primary-test.name
-# }
+output "coupang-primary-testc_cluster_url-direct" {
+  value = aws_route53_record.coupang-primary-test.name
+}
 
-# resource "aws_iam_instance_profile" "coupang-primary-test" {
-#   name_prefix = var.hostname
-#   path        = var.instance_profile_path
-#   role        = aws_iam_role.coupang-primary-test.name
-# }
+resource "aws_iam_instance_profile" "coupang-primary-test" {
+  name_prefix = var.hostname
+  path        = var.instance_profile_path
+  role        = aws_iam_role.coupang-primary-test.name
+}
 
-# resource "aws_iam_role" "coupang-primary-test" {
-#   name_prefix        = "coupang-primary-test"
-#   assume_role_policy = data.aws_iam_policy_document.assume.json
-# }
+resource "aws_iam_role" "coupang-primary-test" {
+  name_prefix        = "coupang-primary-test"
+  assume_role_policy = data.aws_iam_policy_document.assume.json
+}
 
-# resource "aws_iam_role_policy" "coupang-primary-test" {
-#   name   = "coupang-primary-test"
-#   role   = aws_iam_role.coupang-primary-test.id
-#   policy = data.aws_iam_policy_document.this.json
-# }
+resource "aws_iam_role_policy" "coupang-primary-test" {
+  name   = "coupang-primary-test"
+  role   = aws_iam_role.coupang-primary-test.id
+  policy = data.aws_iam_policy_document.this.json
+}
