@@ -119,21 +119,21 @@ module "security_group_vault_from_public_subnets" {
       to_port     = 8200
       protocol    = "tcp"
       description = "Vault ingress api addr"
-      cidr_blocks = local.public_subnets
+      cidr_blocks = "10.0.0.0/16"
     },
     {
       from_port   = 8201
       to_port     = 8201
       protocol    = "tcp"
       description = "Vault ingress cluster addr"
-      cidr_blocks = local.public_subnets
+      cidr_blocks = "10.0.0.0/16"
     },
     {
       from_port   = 5696
       to_port     = 5696
       protocol    = "tcp"
       description = "Vault KMIP listening port"
-      cidr_blocks = local.public_subnets
+      cidr_blocks = "10.0.0.0/16"
     }
   ]
   tags = var.tags
