@@ -34,7 +34,7 @@ resource "aws_lb_target_group" "coupang-primary-test" {
     port = "8200"
     protocol = "HTTP"
     timeout = 2
-    interval = 3
+    interval = 5
   }
 
   vpc_id      = local.vpc_id
@@ -51,7 +51,7 @@ resource "aws_lb_target_group" "coupang-primary-test-8201" {
     port = "8200"
     protocol = "HTTP"
     timeout = 2
-    interval = 3
+    interval = 5
   }
 
   vpc_id      = local.vpc_id
