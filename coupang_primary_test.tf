@@ -41,6 +41,25 @@ resource "aws_lb_target_group" "coupang-primary-test" {
   depends_on = [ aws_lb.coupang-primary-test ]
 }
 
+resource "aws_lb_target_group" "coupang-primary-test-8201" {
+  name     = "coupang-primary-test-8201"
+  port     = 8201
+  protocol = "TCP"
+  
+  health_check {
+    path = "v1/sys/health?standbycode=200&sealedcode=200&uninitcode=200"
+    port = "8200"
+    protocol = "HTTP"
+    timeout = 2
+    interval = 3
+  }
+
+  vpc_id      = local.vpc_id
+  depends_on = [ aws_lb.coupang-primary-test ]
+}
+
+
+
 resource "aws_lb_listener" "coupang-primary-test" {
   load_balancer_arn = aws_lb.coupang-primary-test.arn
   port              = "8200"
@@ -52,11 +71,30 @@ resource "aws_lb_listener" "coupang-primary-test" {
   }
 }
 
+resource "aws_lb_listener" "coupang-primary-test-8201" {
+  load_balancer_arn = aws_lb.coupang-primary-test.arn
+  port              = "8201"
+  protocol          = "TCP"
+
+  default_action {
+    target_group_arn = aws_lb_target_group.coupang-primary-test-8201.arn
+    type             = "forward"
+  }
+}
+
 resource "aws_lb_target_group_attachment" "coupang-primary-test" {
   target_group_arn = aws_lb_target_group.coupang-primary-test.arn
   target_id        = module.coupang-primary-test.id
   port             = 8200
 }
+
+resource "aws_lb_target_group_attachment" "coupang-primary-test-8201" {
+  target_group_arn = aws_lb_target_group.coupang-primary-test-8201.arn
+  target_id        = module.coupang-primary-test.id
+  port             = 8201
+}
+
+
 
 module "coupang-primary-test" {
   source  = "terraform-aws-modules/ec2-instance/aws"
