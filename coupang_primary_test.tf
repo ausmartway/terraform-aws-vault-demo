@@ -33,7 +33,7 @@ resource "aws_lb_target_group" "coupang-primary-test" {
     path = "/v1/sys/health?standbyok=true"
     port = "8200"
     protocol = "HTTP"
-    timeout = 1
+    timeout = 2
     interval = 3
   }
 
