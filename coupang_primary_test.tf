@@ -18,7 +18,10 @@ resource "aws_lb" "coupang-primary-test" {
   enable_deletion_protection = false
 
   tags = var.customer-poc-tags
-  security_groups = [  module.security_group_vault.security_group_id]
+  security_groups = [  
+    local.security_group_outbound,
+    local.security_group_ssh,
+    module.security_group_vault.security_group_id,]
 }
 
 resource "aws_lb_target_group" "coupang-primary-test" {
@@ -39,11 +42,11 @@ resource "aws_lb_listener" "coupang-primary-test" {
   }
 }
 
-# resource "aws_lb_target_group_attachment" "coupang-primary-test" {
-#   target_group_arn = aws_lb_target_group.coupang-primary-test.arn
-#   target_id        = module.coupang-primary-test.id
-#   port             = 8200
-# }
+resource "aws_lb_target_group_attachment" "coupang-primary-test" {
+  target_group_arn = aws_lb_target_group.coupang-primary-test.arn
+  target_id        = module.coupang-primary-test.id
+  port             = 8200
+}
 
 module "coupang-primary-test" {
   source  = "terraform-aws-modules/ec2-instance/aws"
