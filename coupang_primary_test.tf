@@ -41,7 +41,7 @@ resource "aws_lb" "coupang-primary-vault" {
   module.security_group_vault.security_group_id, ]
 }
 
-resource "aws_lb_target_group" "coupang-primary-vault" {
+resource "aws_lb_target_group" "coupang-primary-vault-8200" {
   name     = "coupang-primary-vault"
   port     = 8200
   protocol = "TCP"
@@ -64,7 +64,7 @@ resource "aws_lb_target_group" "coupang-primary-vault-8201" {
   protocol = "TCP"
 
   health_check {
-    path     = "/v1/sys/health?standbycode=200&sealedcode=200&uninitcode=200"
+    path     = "/v1/sys/health"
     port     = "8200"
     protocol = "HTTP"
     timeout  = 2
@@ -99,7 +99,7 @@ resource "aws_lb_listener" "coupang-primary-vault-8201" {
   }
 }
 
-resource "aws_lb_target_group_attachment" "coupang-primary-vault" {
+resource "aws_lb_target_group_attachment" "coupang-primary-vault-8200" {
   target_group_arn = aws_lb_target_group.coupang-primary-vault.arn
   target_id        = module.coupang-primary-vault.id
   port             = 8200
