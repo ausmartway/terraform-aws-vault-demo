@@ -77,13 +77,13 @@ resource "aws_lb_target_group" "coupang-primary-vault-8201" {
 
 
 
-resource "aws_lb_listener" "coupang-primary-vault" {
+resource "aws_lb_listener" "coupang-primary-vault-8200" {
   load_balancer_arn = aws_lb.coupang-primary-vault.arn
   port              = "8200"
   protocol          = "TCP"
 
   default_action {
-    target_group_arn = aws_lb_target_group.coupang-primary-vault.arn
+    target_group_arn = aws_lb_target_group.coupang-primary-vault-8200.arn
     type             = "forward"
   }
 }
@@ -100,7 +100,7 @@ resource "aws_lb_listener" "coupang-primary-vault-8201" {
 }
 
 resource "aws_lb_target_group_attachment" "coupang-primary-vault-8200" {
-  target_group_arn = aws_lb_target_group.coupang-primary-vault.arn
+  target_group_arn = aws_lb_target_group.coupang-primary-vault-8200.arn
   target_id        = module.coupang-primary-vault.id
   port             = 8200
 }
