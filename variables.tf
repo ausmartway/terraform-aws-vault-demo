@@ -30,7 +30,7 @@ variable "instance_profile_path" {
 }
 
 variable "slack_webhook" {
-  type = string
+  type    = string
   default = "https://hooks.slack.com/services/"
 }
 
