@@ -8,7 +8,7 @@ locals {
         ip_addresses = [var.private_ip]
         node_id      = var.hostname
         leader_ip    = var.private_ip
-        kms_key_id   = locals.kms_key_id
+        kms_key_id   = local.kms_key_id
       }
     ))
     slack_webhook = var.slack_webhook
