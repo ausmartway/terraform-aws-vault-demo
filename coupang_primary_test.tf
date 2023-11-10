@@ -45,7 +45,7 @@
 #   name     = "coupang-primary-vault"
 #   port     = 8200
 #   protocol = "TCP"
-  
+
 #   health_check {
 #     path = "/v1/sys/health?standbycode=200&sealedcode=200&uninitcode=200"
 #     port = "8200"
@@ -62,7 +62,7 @@
 #   name     = "coupang-primary-vault-8201"
 #   port     = 8201
 #   protocol = "TCP"
-  
+
 #   health_check {
 #     path = "/v1/sys/health?standbycode=200&sealedcode=200&uninitcode=200"
 #     port = "8200"
