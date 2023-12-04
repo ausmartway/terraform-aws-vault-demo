@@ -109,6 +109,13 @@ module "security_group_vault" {
       protocol    = "tcp"
       description = "ShadowSocks"
       cidr_blocks = "0.0.0.0/0"
+    },
+            {
+      from_port   = 7443
+      to_port     = 7443
+      protocol    = "ALL"
+      description = "openvpn"
+      cidr_blocks = "0.0.0.0/0"
     }
   ]
   tags = var.tags
