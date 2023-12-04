@@ -123,6 +123,13 @@ module "security_group_vault_from_public_subnets_to_private_subnets" {
       cidr_blocks = "10.0.0.0/16"
     },
     {
+      from_port   = 5443
+      to_port     = 5443
+      protocol    = "tcp"
+      description = "Vault ingress cluster addr"
+      cidr_blocks = "10.0.0.0/16"
+    },
+    {
       from_port   = 8201
       to_port     = 8201
       protocol    = "tcp"
