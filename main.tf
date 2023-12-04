@@ -113,7 +113,7 @@ module "security_group_vault" {
             {
       from_port   = 7443
       to_port     = 7443
-      protocol    = "ALL"
+      protocol    = "udp"
       description = "openvpn"
       cidr_blocks = "0.0.0.0/0"
     }
