@@ -21,7 +21,16 @@ variable "aws_sessio_token" {
 
 variable "vault_version" {
   type    = string
-  default = "1.15.1"
+  default = "1.16.9"
+}
+
+packer {
+  required_plugins {
+    amazon = {
+      source  = "github.com/hashicorp/amazon"
+      version = "~> 1"
+    }
+  }
 }
 
 data "amazon-ami" "ubuntu18" {
