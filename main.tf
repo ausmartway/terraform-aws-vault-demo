@@ -28,7 +28,7 @@ data "aws_ami" "ubuntu" {
 
   filter {
     name   = "tag:application"
-    values = ["vault-1.16.9-ent"]
+    values = ["vault-1.19.5-ent"]
   }
 
   filter {

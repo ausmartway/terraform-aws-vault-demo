@@ -11,11 +11,13 @@ variable "key_name" {
 variable "tags" {
   type = map(any)
   default = {
-    Name        = "yulei-vault"
-    TTL         = "192"
+    name        = "yulei-vault"
+    ttl         = "192"
     owner       = "yulei@hashicorp.com"
-    Region      = "APJ"
+    se-region      = "APJ"
     description = "General vault demo instance"
+    purpose    = "vault demo"
+    terraform = "true"
   }
 }
 
