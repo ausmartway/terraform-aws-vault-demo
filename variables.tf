@@ -14,10 +14,10 @@ variable "tags" {
     name        = "yulei-vault"
     ttl         = "192"
     owner       = "yulei@hashicorp.com"
-    se-region      = "APJ"
+    se-region   = "APJ"
     description = "General vault demo instance"
-    purpose    = "vault demo"
-    terraform = "true"
+    purpose     = "vault demo"
+    terraform   = "true"
   }
 }
 
